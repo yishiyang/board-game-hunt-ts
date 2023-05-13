@@ -1,10 +1,6 @@
 <template>
   <v-app>
-    <v-app-bar
-      app
-      color="primary"
-      dark
-    >
+    <v-app-bar app color="primary" dark>
       <div class="d-flex align-center">
         <v-img
           alt="Vuetify Logo"
@@ -38,24 +34,23 @@
     </v-app-bar>
 
     <v-main>
-      <HelloWorld/>
+      <v-row>
+        <v-col cols="8"> <GameSection /> </v-col>
+        <v-col cols="2"> </v-col>
+      </v-row>
     </v-main>
   </v-app>
 </template>
 
 <script lang="ts">
-import Vue from 'vue';
-import HelloWorld from './components/HelloWorld.vue';
+import GameSection from "./components/GameSection.vue";
+import games from "@/store/modules/games";
+import { Component, Vue } from "vue-property-decorator";
 
-export default Vue.extend({
-  name: 'App',
-
+@Component({
   components: {
-    HelloWorld,
+    GameSection,
   },
-
-  data: () => ({
-    //
-  }),
-});
+})
+export default class App extends Vue {}
 </script>

@@ -58,7 +58,7 @@
 
       <v-col class="mb-5" cols="12">
         <h2 class="headline font-weight-bold mb-3">Ecosystem</h2>
-
+        <GameCard />
         <v-row justify="center">
           <a
             v-for="(eco, i) in ecosystem"
@@ -77,10 +77,14 @@
 
 <script lang="ts">
 import Vue from "vue";
-import { mapState, mapActions } from "vuex";
+import games from "../store/index";
+import GameCard from "./GameCard.vue";
 
 export default Vue.extend({
   name: "HelloWorld",
+  components: {
+    GameCard,
+  },
 
   data: () => ({
     ecosystem: [
@@ -134,8 +138,6 @@ export default Vue.extend({
       },
     ],
   }),
-  methods: {
-    ...mapActions(["loadGames"]),
-  },
+  methods: {},
 });
 </script>
