@@ -1,7 +1,9 @@
 <template>
   <v-row>
     <v-col cols="12" v-for="item in loadedGames" :key="item.id">
-      <GameCard :item="item" @click="openDetail($event)" />
+      <router-link :to="{ path: '/gameDetail/' + item.id, props: true }">
+        <GameCard :item="item" />
+      </router-link>
     </v-col>
   </v-row>
 </template>
@@ -10,7 +12,7 @@
 import { Component, Vue } from "vue-property-decorator";
 import games from "@/store/modules/games";
 import GameCard from "./GameCard.vue";
-import GameDetail from "./GameDetail.vue";
+import GameDetail from "../views/GameDetail.vue";
 import router from "@/router/index";
 
 @Component({
@@ -31,7 +33,7 @@ import router from "@/router/index";
 })
 export default class GameSection extends Vue {
   openDetail(id: string) {
-    router.push({ path: `/gameDetail/${id}` });
+    router.push({ path: "/gameDetail/", params: { id: id } });
   }
 }
 </script>

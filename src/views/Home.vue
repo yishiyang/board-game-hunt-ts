@@ -9,7 +9,7 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import games from "@/store/modules/games";
-import GameCard from "./GameCard.vue";
+import GameCard from "../components/GameCard.vue";
 import GameDetail from "./GameDetail.vue";
 import router from "@/router/index";
 

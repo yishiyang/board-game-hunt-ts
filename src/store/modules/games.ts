@@ -65,14 +65,16 @@ class Games extends VuexModule {
 
     this.SET_HOT_GAMES(hotGames);
   }
-}
-// const bggResponse = parseBggXmlApi2ThingResponse(response.data);
-// var games: BggGame[] = [];
-// console.log(bggResponse?.items);
-// bggResponse?.items.forEach((element) => {
-//   games.push(element as BggGame);
-// });
 
-// this.SET_GAMES(games);
+  get getGameById() {
+    return function (id: string) {
+      var find = getModule(Games).gameItems.find((item) => {
+        return item.id.toString() == id;
+      });
+
+      return find ? find : undefined;
+    };
+  }
+}
 
 export default getModule(Games);
