@@ -29,7 +29,7 @@ import router from "@/router/index";
     },
   },
 })
-export default class GameSection extends Vue {
+export default class Home extends Vue {
   openDetail(id: string) {
     router.push({ path: `/gameDetail/${id}` });
   }

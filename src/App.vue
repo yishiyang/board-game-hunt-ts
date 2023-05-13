@@ -35,7 +35,7 @@
 
     <v-main>
       <v-row>
-        <v-col cols="8"> <GameSection /> </v-col>
+        <v-col cols="8"><router-view></router-view> </v-col>
         <v-col cols="2"> </v-col>
       </v-row>
     </v-main>

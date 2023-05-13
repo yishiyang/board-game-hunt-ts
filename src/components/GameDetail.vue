@@ -1,5 +1,5 @@
 <template>
-  <v-card @click="$emit('click', item.id)">
+  <v-card>
     <v-img height="250" :src="item.image"></v-img>
     <v-card-title>{{ item.names[0].value }}</v-card-title>
   </v-card>
@@ -18,7 +18,7 @@ import { Component, Vue } from "vue-property-decorator";
     },
   },
 })
-export default class GameCard extends Vue {}
+export default class GameDetail extends Vue {}
 </script>
 
 <style></style>
