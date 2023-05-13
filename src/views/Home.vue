@@ -1,6 +1,6 @@
 <template>
   <v-row>
-    <v-col cols="12" v-for="item in loadedGames" :key="item.id">
+    <v-col cols="4" v-for="item in loadedGames" :key="item.id">
       <GameCard :item="item" @click="openDetail($event)" />
     </v-col>
   </v-row>

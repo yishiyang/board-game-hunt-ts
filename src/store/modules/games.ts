@@ -42,7 +42,7 @@ class Games extends VuexModule {
     for (var i = 0; i < 10; i++) {
       route = route + this.hotGameIDs[i] + ",";
     }
-    route += "&versions=1";
+    route += "&stats=1&versions=1";
     console.log(route);
     const response = await axios.get(route);
 

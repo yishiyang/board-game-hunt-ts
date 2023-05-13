@@ -5,7 +5,7 @@
     </router-link>
 
     <v-card>
-      <v-img height="250" :src="game.image"></v-img>
+      <v-img height="250" contain :src="game.image"></v-img>
       <v-card-title>{{ game.names[0].value }}</v-card-title>
     </v-card>
   </v-row>
