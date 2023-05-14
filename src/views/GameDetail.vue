@@ -2,7 +2,7 @@
   <v-row class="mt-6 justify-center">
     <v-col cols="6">
       <router-link :to="{ path: '/' }">
-        <v-btn class="mb-5" color="orange" dark>Back</v-btn>
+        <v-btn class="mb-5 primary--text" color="accent">Back</v-btn>
       </router-link>
       <v-sheet rounded color="surface" elevation="6" class="mx-auto pa-5">
         <v-row>
