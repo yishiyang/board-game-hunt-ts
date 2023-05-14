@@ -1,13 +1,13 @@
 <template>
   <v-row class="mt-6 justify-center">
-    <v-col cols="6">
+    <v-col xl="6" lg="8" md="10" xs="12">
       <router-link :to="{ path: '/' }">
         <v-btn class="mb-5 primary--text" color="accent">Back</v-btn>
       </router-link>
       <v-sheet rounded color="surface" elevation="6" class="mx-auto pa-5">
         <v-row>
           <v-col cols="6">
-            <v-img cover height="auto" :src="gameImage"></v-img>
+            <v-img cover max-height="400" :src="gameImage"></v-img>
           </v-col>
 
           <v-col cols="6">
@@ -64,7 +64,7 @@
                 {{ category.value }}
               </v-chip>
             </div>
-            <div style="max-height: 200px" class="text-body-1 overflow-auto">
+            <div style="max-height: 220px" class="text-body-1 overflow-auto">
               {{ gameDescription }}
             </div>
           </v-col>
@@ -85,7 +85,7 @@
               <v-col cols="6">
                 <div class="text-body-1">
                   What's your recommendation?
-                  <v-chip-group active-class="accent--text" column>
+                  <v-chip-group active-class="primary--text" column>
                     <v-chip filter v-for="n in gameMaxPlayers" :key="n">
                       {{ n }}
                     </v-chip>

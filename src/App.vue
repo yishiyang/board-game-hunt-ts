@@ -4,7 +4,7 @@
       <v-row class="justify-center">
         <v-col cols="10">
           <v-row>
-            <v-col cols="6">
+            <v-col lg="6" md="9" sm="10">
               <router-link
                 to="/"
                 class="white--text"
@@ -23,8 +23,8 @@
                 </div>
               </router-link>
             </v-col>
-            <v-spacer />
-            <v-col cols="4">
+            <v-spacer class="hidden-sm-and-down" />
+            <v-col lg="4" md="3" class="hidden-sm-and-down">
               <div>
                 <v-text-field
                   v-model="searchTerm"
