@@ -19,7 +19,7 @@
       <v-col cols="12">
         <v-chip color="info" outlined class="ma-2" label>
           <v-icon class="mr-2">mdi-cake-variant</v-icon>
-          {{ item.minage }}
+          > {{ item.minage }}
         </v-chip>
         <v-chip color="info" outlined class="ma-2" label>
           <v-icon class="mr-2">mdi-account-multiple</v-icon>
