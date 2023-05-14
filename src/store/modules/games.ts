@@ -5,7 +5,7 @@ import {
   VuexModule,
   getModule,
 } from "vuex-module-decorators";
-
+import { Vue } from "vue-property-decorator";
 import axios from "axios";
 import {
   parseBggXmlApi2ThingResponse,
@@ -14,32 +14,47 @@ import {
 
 import store from "@/store";
 import { parseString } from "xml2js";
-import { IHotGame } from "@/types/game";
+import { IBggGame } from "@/types/game";
 
 @Module({ dynamic: true, store, name: "games" })
 class Games extends VuexModule {
-  gameItems: Array<BggGame> = [];
+  gameItems: Array<IBggGame> = [];
   hotGameIDs: Array<number> = [];
   searchTerm: string = "";
 
   @Mutation
-  private SET_GAMES(games: BggGame[]) {
+  private SET_GAMES(games: IBggGame[]) {
     this.gameItems = games;
   }
 
   @Mutation
-  private SET_HOT_GAMES(games: number[]) {
+  private SET_HOT_GAME_IDs(games: number[]) {
     this.hotGameIDs = games;
   }
 
   @Mutation
-  private APPEND_GAME(game: BggGame) {
+  private APPEND_GAME(game: IBggGame) {
     this.gameItems.push(game);
   }
 
   @Mutation
   private UPDATE_SEARCH_TERM(searchTerm: string) {
     this.searchTerm = searchTerm;
+  }
+
+  @Mutation
+  private VOTE_GAME(id: string) {
+    var findIndex = 0;
+    var find = this.gameItems.find((item, index) => {
+      findIndex = index;
+      return item.id.toString() == id;
+    });
+    if (find) {
+      find.votes++;
+    }
+
+    //keep data's reactivity
+    Vue.set(this.gameItems, findIndex, find);
   }
 
   @Action
@@ -53,8 +68,12 @@ class Games extends VuexModule {
     const response = await axios.get(route);
 
     const bggResponse = parseBggXmlApi2ThingResponse(response.data);
-    console.log(bggResponse);
-    this.SET_GAMES(bggResponse?.items as BggGame[]);
+
+    var updatedGames = bggResponse?.items.map((el) => {
+      return { ...el, votes: Math.floor(Math.random() * (100 - 0 + 1) + 0) };
+    });
+
+    this.SET_GAMES(updatedGames as IBggGame[]);
   }
 
   @Action
@@ -69,12 +88,17 @@ class Games extends VuexModule {
       });
     });
 
-    this.SET_HOT_GAMES(hotGames);
+    this.SET_HOT_GAME_IDs(hotGames);
   }
 
   @Action
   searchGame(searchTerm: string) {
     this.UPDATE_SEARCH_TERM(searchTerm);
+  }
+
+  @Action
+  voteGame(id: string) {
+    this.VOTE_GAME(id);
   }
 
   get getGameById() {
