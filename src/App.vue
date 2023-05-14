@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <v-app-bar app color="primary" dark>
+    <v-app-bar app color="#353B69" dark>
       <div class="d-flex align-center">
         <v-img
           alt="Vuetify Logo"
@@ -11,14 +11,7 @@
           width="40"
         />
 
-        <v-img
-          alt="Vuetify Name"
-          class="shrink mt-1 hidden-sm-and-down"
-          contain
-          min-width="100"
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-name-dark.png"
-          width="100"
-        />
+        <h1 class="text-h3">Board Game Hunt</h1>
       </div>
 
       <v-spacer></v-spacer>
@@ -33,7 +26,7 @@
       </v-btn>
     </v-app-bar>
 
-    <v-main>
+    <v-main class="bkg">
       <v-row>
         <v-col cols="9"><router-view></router-view> </v-col>
         <v-col cols="3"> </v-col>
@@ -54,3 +47,11 @@ import { Component, Vue } from "vue-property-decorator";
 })
 export default class App extends Vue {}
 </script>
+
+<style scoped>
+.bkg {
+  background-image: url("@/assets/background.svg");
+  background-size: cover;
+  background-position: center center;
+}
+</style>

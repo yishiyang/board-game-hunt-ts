@@ -1,36 +1,46 @@
 <template>
-  <v-card @click="$emit('click', item.id)" class="mx-auto my-6">
+  <v-card
+    height="400"
+    color="#C6CADC"
+    @click="$emit('click', item.id)"
+    class="mx-auto my-6 pb-0"
+  >
     <v-img height="200" :src="item.image"></v-img>
+    <v-card-title class="text-h5">{{ item.names[0].value }}</v-card-title>
 
-    <v-card-title>{{ item.names[0].value }}</v-card-title>
-    <v-card-text>
-      <v-col cols="12">
+    <v-card-text class="px-4 brown--text">
+      <div class="d-flex justify-start">
+        <div class="text-body-1 mr-2">
+          <v-icon class="" color="brown">mdi-cake-variant</v-icon>
+          >
+          {{ item.minage }} |
+        </div>
+
+        <div class="text-body-1 mr-2">
+          <v-icon class="" color="brown">mdi-account-multiple</v-icon>
+          >
+          {{ item.minplayers }}-{{ item.maxplayers }} |
+        </div>
+
+        <div class="text-body-1">
+          <v-icon color="brown">mdi-clock-time-three</v-icon>
+          >
+          {{ item.minplaytime }}-{{ item.maxplaytime }} min
+        </div>
+      </div>
+      <div class="mt-4">
         <v-chip
           v-for="(category, index) in gameCategories"
           :key="index + category.id"
-          color="info"
+          color="brown"
           outlined
-          class="ma-2"
           label
+          small
+          class="mr-2 my-1"
         >
           {{ category.value }}
         </v-chip>
-      </v-col>
-      <v-col cols="12">
-        <v-chip color="info" outlined class="ma-2" label>
-          <v-icon class="mr-2">mdi-cake-variant</v-icon>
-          > {{ item.minage }}
-        </v-chip>
-        <v-chip color="info" outlined class="ma-2" label>
-          <v-icon class="mr-2">mdi-account-multiple</v-icon>
-          {{ item.minplayers }} -
-          {{ item.maxplayers }}
-        </v-chip>
-        <v-chip color="info" outlined class="ma-2" label>
-          <v-icon class="mr-2">mdi-clock-time-three</v-icon>
-          {{ item.minplaytime }}-{{ item.maxplaytime }} min
-        </v-chip>
-      </v-col>
+      </div>
     </v-card-text>
   </v-card>
 </template>
