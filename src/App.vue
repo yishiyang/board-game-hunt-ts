@@ -32,7 +32,7 @@
                   filled
                   solo
                   dense
-                  label="Search to find games"
+                  label="Type name to find games"
                   prepend-inner-icon="mdi-magnify"
                   rounded
                   hide-details
