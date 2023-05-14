@@ -1,19 +1,23 @@
 <template>
   <v-card
     height="400"
-    color="#C6CADC"
+    color="surface"
     @click="$emit('click', item.id)"
     class="mx-auto"
     elevation="6"
   >
     <v-img height="200" :src="item.image"></v-img>
-    <v-card-title class="text-h5"
-      >{{ item.names[0].value }}
-      <v-spacer />
-      <v-btn color="#353B69" small>
-        <v-icon left dark color="#F4D147"> mdi-emoticon </v-icon>
-        <div class="yellow--text text-body-2">23</div>
-      </v-btn>
+
+    <v-card-title>
+      <v-col cols="9" class="pa-0 ma-0">
+        <div class="text-truncate text-h5">{{ item.names[0].value }}</div>
+      </v-col>
+      <v-col cols="3" class="pa-0 ma-0 d-flex justify-end">
+        <v-btn color="#353B69" small>
+          <v-icon left dark color="#F4D147"> mdi-emoticon </v-icon>
+          <div class="yellow--text text-body-2">23</div>
+        </v-btn>
+      </v-col>
     </v-card-title>
 
     <v-card-text class="px-4 brown--text">
