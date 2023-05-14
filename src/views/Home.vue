@@ -2,7 +2,7 @@
   <v-row class="justify-center">
     <v-col cols="10" class="pa-3">
       <v-row class="pa-5">
-        <v-col cols="4" v-for="item in loadedGames" :key="item.id">
+        <v-col md="6" lg="4" xl="3" v-for="item in loadedGames" :key="item.id">
           <GameCard :item="item" @click="openDetail($event)" />
         </v-col>
       </v-row>
