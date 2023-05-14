@@ -5,18 +5,23 @@
         <v-col cols="10">
           <v-row>
             <v-col cols="6">
-              <div class="d-flex align-center">
-                <v-img
-                  alt="Vuetify Logo"
-                  class="shrink mr-2"
-                  contain
-                  src="https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png"
-                  transition="scale-transition"
-                  width="40"
-                />
+              <router-link
+                to="/"
+                class="white--text"
+                style="text-decoration: none"
+              >
+                <div class="d-flex align-center">
+                  <v-img
+                    class="shrink mr-2"
+                    contain
+                    src="./assets/logo.png"
+                    transition="scale-transition"
+                    width="40"
+                  />
 
-                <h1 class="text-h4">Board Game Hunt</h1>
-              </div>
+                  <h1 class="text-h4">Board Game Hunt</h1>
+                </div>
+              </router-link>
             </v-col>
             <v-spacer />
             <v-col cols="4">
