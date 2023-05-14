@@ -1,29 +1,44 @@
 <template>
   <v-app>
-    <v-app-bar app color="#353B69" dark>
-      <div class="d-flex align-center">
-        <v-img
-          alt="Vuetify Logo"
-          class="shrink mr-2"
-          contain
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png"
-          transition="scale-transition"
-          width="40"
-        />
+    <v-app-bar app color="primary" dark>
+      <v-row class="justify-center">
+        <v-col cols="10">
+          <v-row>
+            <v-col cols="6">
+              <div class="d-flex align-center">
+                <v-img
+                  alt="Vuetify Logo"
+                  class="shrink mr-2"
+                  contain
+                  src="https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png"
+                  transition="scale-transition"
+                  width="40"
+                />
 
-        <h1 class="text-h3">Board Game Hunt</h1>
-      </div>
-
-      <v-spacer></v-spacer>
-
-      <v-btn
-        href="https://github.com/vuetifyjs/vuetify/releases/latest"
-        target="_blank"
-        text
-      >
-        <span class="mr-2">Latest Release</span>
-        <v-icon>mdi-open-in-new</v-icon>
-      </v-btn>
+                <h1 class="text-h4">Board Game Hunt</h1>
+              </div>
+            </v-col>
+            <v-spacer />
+            <v-col cols="4">
+              <div>
+                <v-text-field
+                  v-model="searchTerm"
+                  class="d-flex justify-self-end"
+                  filled
+                  solo
+                  dense
+                  label="Search to find games"
+                  prepend-inner-icon="mdi-magnify"
+                  rounded
+                  hide-details
+                  clearable
+                  @input="searchGame($event)"
+                ></v-text-field>
+              </div>
+            </v-col>
+          </v-row>
+        </v-col>
+      </v-row>
     </v-app-bar>
 
     <v-main class="bkg">
@@ -44,7 +59,16 @@ import { Component, Vue } from "vue-property-decorator";
     GameSection,
   },
 })
-export default class App extends Vue {}
+export default class App extends Vue {
+  searchTerm = "";
+
+  searchGame(searchTerm: string) {
+    if (searchTerm === null) {
+      searchTerm = "";
+    }
+    games.searchGame(searchTerm);
+  }
+}
 </script>
 
 <style scoped>

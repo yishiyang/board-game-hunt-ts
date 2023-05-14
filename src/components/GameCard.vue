@@ -3,7 +3,7 @@
     height="400"
     color="#C6CADC"
     @click="$emit('click', item.id)"
-    class="mx-auto my-6 pb-0"
+    class="mx-auto"
     elevation="6"
   >
     <v-img height="200" :src="item.image"></v-img>
@@ -39,7 +39,7 @@
       <div class="mt-4">
         <v-chip
           v-for="(category, index) in gameCategories"
-          :key="index + category.id"
+          :key="index + category.id + category.value"
           color="brown"
           outlined
           label

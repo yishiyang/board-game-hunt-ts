@@ -20,6 +20,7 @@ import { IHotGame } from "@/types/game";
 class Games extends VuexModule {
   gameItems: Array<BggGame> = [];
   hotGameIDs: Array<number> = [];
+  searchTerm: string = "";
 
   @Mutation
   private SET_GAMES(games: BggGame[]) {
@@ -36,10 +37,15 @@ class Games extends VuexModule {
     this.gameItems.push(game);
   }
 
+  @Mutation
+  private UPDATE_SEARCH_TERM(searchTerm: string) {
+    this.searchTerm = searchTerm;
+  }
+
   @Action
   async loadHotGames() {
     var route = "https://api.geekdo.com/xmlapi2/thing?id=";
-    for (var i = 0; i < 10; i++) {
+    for (var i = 0; i < 40; i++) {
       route = route + this.hotGameIDs[i] + ",";
     }
     route += "&stats=1&versions=1";
@@ -66,6 +72,11 @@ class Games extends VuexModule {
     this.SET_HOT_GAMES(hotGames);
   }
 
+  @Action
+  searchGame(searchTerm: string) {
+    this.UPDATE_SEARCH_TERM(searchTerm);
+  }
+
   get getGameById() {
     return function (id: string) {
       var find = getModule(Games).gameItems.find((item) => {
@@ -74,6 +85,14 @@ class Games extends VuexModule {
 
       return find ? find : undefined;
     };
+  }
+
+  get filteredGames() {
+    return this.gameItems.filter((item: BggGame) => {
+      return item.names[0].value
+        .toLowerCase()
+        .includes(this.searchTerm.toLowerCase());
+    });
   }
 }
 

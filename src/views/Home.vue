@@ -1,7 +1,11 @@
 <template>
-  <v-row>
-    <v-col cols="4" v-for="item in loadedGames" :key="item.id">
-      <GameCard :item="item" @click="openDetail($event)" />
+  <v-row class="justify-center">
+    <v-col cols="10" class="pa-3">
+      <v-row class="pa-5">
+        <v-col cols="4" v-for="item in loadedGames" :key="item.id">
+          <GameCard :item="item" @click="openDetail($event)" />
+        </v-col>
+      </v-row>
     </v-col>
   </v-row>
 </template>
@@ -25,11 +29,13 @@ import router from "@/router/index";
   },
   computed: {
     loadedGames() {
-      return games.gameItems;
+      return games.filteredGames;
     },
   },
 })
 export default class Home extends Vue {
+  searchTerm = "";
+
   openDetail(id: string) {
     router.push({ path: `/gameDetail/${id}` });
   }
