@@ -5,11 +5,6 @@ import {
   BggVersion,
 } from "@code-bucket/board-game-geek";
 
-export interface IHotGame {
-  id: number;
-  name: string;
-}
-
 export interface IBggGame {
   id: number;
   type: "boardgame" | string;

@@ -33,11 +33,6 @@ class Games extends VuexModule {
   }
 
   @Mutation
-  private APPEND_GAME(game: IBggGame) {
-    this.gameItems.push(game);
-  }
-
-  @Mutation
   private UPDATE_SEARCH_TERM(searchTerm: string) {
     this.searchTerm = searchTerm;
   }
