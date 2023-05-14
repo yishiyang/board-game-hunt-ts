@@ -7,31 +7,37 @@
       <v-sheet rounded color="surface" elevation="6" class="mx-auto pa-5">
         <v-row>
           <v-col cols="6">
-            <v-img cover height="auto" :src="game.image"></v-img>
+            <v-img cover height="auto" :src="gameImage"></v-img>
           </v-col>
 
           <v-col cols="6">
-            <div class="text-h4 mb-3">{{ game.names[0].value }}</div>
+            <div class="d-flex justify-space-between">
+              <div class="text-h4 mb-3">{{ gameName }}</div>
+              <v-btn color="#353B69" small>
+                <v-icon left dark color="#F4D147"> mdi-emoticon </v-icon>
+                <div class="yellow--text text-body-2">23</div>
+              </v-btn>
+            </div>
             <div class="d-flex justify-start mb-2 brown--text">
               <div class="text-body-1 mr-2">
                 <v-icon class="" color="brown">mdi-cake-variant</v-icon>
                 >
-                {{ game.minage }} |
+                {{ gameMinAge }} |
               </div>
 
               <div class="text-body-1 mr-2">
                 <v-icon class="" color="brown">mdi-account-multiple</v-icon>
 
-                {{ game.minplayers }}-{{ game.maxplayers }} |
+                {{ gameMinPlayers }}-{{ gameMaxPlayers }} |
               </div>
 
               <div class="text-body-1">
                 <v-icon color="brown">mdi-clock-time-three</v-icon>
 
-                {{ game.minplaytime }}-{{ game.maxplaytime }} min
+                {{ gameMinPlayTime }}-{{ gameMaxPlayTime }} min
               </div>
             </div>
-            <div class="mb-3">
+            <div class="mb-3" v-if="gameHasLinks">
               <v-chip
                 v-for="(category, index) in gameCategories"
                 :key="index + category.id"
@@ -45,7 +51,7 @@
               </v-chip>
             </div>
             <div style="max-height: 200px" class="text-body-1 overflow-auto">
-              {{ game.description }}
+              {{ gameDescription }}
             </div>
           </v-col>
         </v-row>
@@ -64,7 +70,7 @@
                 <div class="text-body-1">
                   What's your recommendation?
                   <v-chip-group active-class="primary--text" column>
-                    <v-chip v-for="n in game.maxplayers" :key="n">
+                    <v-chip v-for="n in gameMaxPlayers" :key="n">
                       {{ n }}
                     </v-chip>
                   </v-chip-group>
@@ -82,14 +88,14 @@
                   What's your recommendation?
 
                   <div class="d-flex justify-center mt-10">
-                    {{ game.minplaytime }} min
+                    {{ gameMinPlayTime }} min
                     <v-slider
-                      :min="game.minplaytime"
-                      :max="game.maxplaytime"
+                      :min="gameMinPlayTime"
+                      :max="gameMaxPlayTime"
                       v-model="selPlayTime"
                       thumb-label="always"
                     ></v-slider>
-                    {{ game.maxplaytime }} min
+                    {{ gameMaxPlayTime }} min
                   </div>
                 </div>
               </v-col>
@@ -102,28 +108,68 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
+import { Component, Vue, Watch } from "vue-property-decorator";
+import { Route } from "vue-router";
 import games from "@/store/modules/games";
 import { BggGame, BggPoll } from "@code-bucket/board-game-geek";
 
 @Component({
   props: {},
 
-  watch: {
-    $route(to, from) {
-      // react to route changes...
-      console.log(to);
-      console.log(from);
-    },
-  },
-
   computed: {},
+
+  async mounted() {
+    //reload games if this page is refreshed
+    if (games.gameItems.length == 0) {
+      await games.loadHotGameIds();
+      await games.loadHotGames();
+    }
+
+    this.$data.gameId = this.$route.params.id;
+  },
 })
 export default class GameDetail extends Vue {
+  selPlayTime = this.randomPalyerNum;
+  gameId = "";
+
   get game() {
-    const gameId = this.$route.params.id;
-    console.log(games.getGameById(gameId));
-    return games.getGameById(gameId);
+    return games.getGameById(this.gameId);
+  }
+
+  get gameImage() {
+    return this.game?.image;
+  }
+
+  get gameName() {
+    return this.game?.names[0]?.value;
+  }
+
+  get gameMinAge() {
+    return this.game?.minage;
+  }
+
+  get gameMinPlayers() {
+    return this.game?.minplayers;
+  }
+
+  get gameMaxPlayers() {
+    return this.game?.maxplayers;
+  }
+
+  get gameMinPlayTime() {
+    return this.game?.minplaytime;
+  }
+
+  get gameMaxPlayTime() {
+    return this.game?.maxplaytime;
+  }
+
+  get gameHasLinks() {
+    return this.game?.links.length;
+  }
+
+  get gameDescription() {
+    return this.game?.description;
   }
 
   get gameCategories() {
@@ -131,7 +177,7 @@ export default class GameDetail extends Vue {
     for (var i = 0; i < 3; i++) {
       links.push(this.game?.links[i]);
     }
-    return links;
+    return links ? links : [];
   }
   get polls() {
     return this.game?.polls[0].title;
