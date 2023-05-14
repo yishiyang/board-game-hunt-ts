@@ -28,8 +28,7 @@
 
     <v-main class="bkg">
       <v-row>
-        <v-col cols="9"><router-view></router-view> </v-col>
-        <v-col cols="3"> </v-col>
+        <v-col cols="12"><router-view></router-view> </v-col>
       </v-row>
     </v-main>
   </v-app>

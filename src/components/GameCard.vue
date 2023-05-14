@@ -4,9 +4,17 @@
     color="#C6CADC"
     @click="$emit('click', item.id)"
     class="mx-auto my-6 pb-0"
+    elevation="6"
   >
     <v-img height="200" :src="item.image"></v-img>
-    <v-card-title class="text-h5">{{ item.names[0].value }}</v-card-title>
+    <v-card-title class="text-h5"
+      >{{ item.names[0].value }}
+      <v-spacer />
+      <v-btn color="#353B69" small>
+        <v-icon left dark color="#F4D147"> mdi-emoticon </v-icon>
+        <div class="yellow--text text-body-2">23</div>
+      </v-btn>
+    </v-card-title>
 
     <v-card-text class="px-4 brown--text">
       <div class="d-flex justify-start">
@@ -18,13 +26,13 @@
 
         <div class="text-body-1 mr-2">
           <v-icon class="" color="brown">mdi-account-multiple</v-icon>
-          >
+
           {{ item.minplayers }}-{{ item.maxplayers }} |
         </div>
 
         <div class="text-body-1">
           <v-icon color="brown">mdi-clock-time-three</v-icon>
-          >
+
           {{ item.minplaytime }}-{{ item.maxplaytime }} min
         </div>
       </div>
