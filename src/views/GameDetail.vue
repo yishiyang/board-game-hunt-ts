@@ -2,7 +2,7 @@
   <v-row class="mt-6 justify-center">
     <v-col cols="6">
       <router-link :to="{ path: '/' }">
-        <v-btn class="mb-5" color="primary">Back</v-btn>
+        <v-btn class="mb-5" color="orange" dark>Back</v-btn>
       </router-link>
       <v-sheet rounded color="surface" elevation="6" class="mx-auto pa-5">
         <v-row>
@@ -13,9 +13,9 @@
           <v-col cols="6">
             <div class="d-flex justify-space-between">
               <div class="text-h4 mb-3">{{ gameName }}</div>
-              <v-btn color="#353B69" small>
+              <v-btn color="#353B69" small @click="voteGame()">
                 <v-icon left dark color="#F4D147"> mdi-emoticon </v-icon>
-                <div class="yellow--text text-body-2">23</div>
+                <div class="yellow--text text-body-2">{{ gameVotes }}</div>
               </v-btn>
             </div>
             <div class="d-flex justify-start mb-2 brown--text">
@@ -132,6 +132,10 @@ export default class GameDetail extends Vue {
   selPlayTime = this.randomPalyerNum;
   gameId = "";
 
+  voteGame() {
+    games.voteGame(this.gameId);
+  }
+
   get game() {
     return games.getGameById(this.gameId);
   }
@@ -170,6 +174,10 @@ export default class GameDetail extends Vue {
 
   get gameDescription() {
     return this.game?.description;
+  }
+
+  get gameVotes() {
+    return this.game?.votes;
   }
 
   get gameCategories() {

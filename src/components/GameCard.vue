@@ -13,9 +13,9 @@
         <div class="text-truncate text-h5">{{ item.names[0].value }}</div>
       </v-col>
       <v-col cols="3" class="pa-0 ma-0 d-flex justify-end">
-        <v-btn color="#353B69" small>
+        <v-btn color="#353B69" small @click.stop="vote()">
           <v-icon left dark color="#F4D147"> mdi-emoticon </v-icon>
-          <div class="yellow--text text-body-2">23</div>
+          <div class="yellow--text text-body-2">{{ item.votes }}</div>
         </v-btn>
       </v-col>
     </v-card-title>
@@ -59,6 +59,7 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
+import games from "@/store/modules/games";
 @Component({
   props: {
     item: {
@@ -80,7 +81,12 @@ import { Component, Vue } from "vue-property-decorator";
     },
   },
 })
-export default class GameCard extends Vue {}
+export default class GameCard extends Vue {
+  vote() {
+    console.log("vote");
+    games.voteGame(this.$props.item.id);
+  }
+}
 </script>
 
 <style></style>
