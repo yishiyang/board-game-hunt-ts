@@ -22,23 +22,38 @@
 
     <v-card-text class="px-4 brown--text">
       <div class="d-flex justify-start">
-        <div class="text-body-1 mr-2">
-          <v-icon class="" color="brown">mdi-cake-variant</v-icon>
-          >
-          {{ item.minage }} |
-        </div>
+        <v-tooltip bottom>
+          <template v-slot:activator="{ on, attrs }">
+            <div v-bind="attrs" v-on="on" class="text-body-1 mr-2">
+              <v-icon color="brown" size="20">mdi-cake-variant</v-icon>
+              >
+              {{ item.minage }} |
+            </div>
+          </template>
+          <span>Minimum play age</span>
+        </v-tooltip>
 
-        <div class="text-body-1 mr-2">
-          <v-icon class="" color="brown">mdi-account-multiple</v-icon>
+        <v-tooltip bottom>
+          <template v-slot:activator="{ on, attrs }">
+            <div v-bind="attrs" v-on="on" class="text-body-1 mr-2">
+              <v-icon class="" color="brown">mdi-account-multiple</v-icon>
 
-          {{ item.minplayers }}-{{ item.maxplayers }} |
-        </div>
+              {{ item.minplayers }}-{{ item.maxplayers }} |
+            </div>
+          </template>
+          <span>Number of players</span>
+        </v-tooltip>
 
-        <div class="text-body-1">
-          <v-icon color="brown">mdi-clock-time-three</v-icon>
+        <v-tooltip bottom>
+          <template v-slot:activator="{ on, attrs }">
+            <div class="text-body-1" v-bind="attrs" v-on="on">
+              <v-icon color="brown">mdi-clock-time-three</v-icon>
 
-          {{ item.minplaytime }}-{{ item.maxplaytime }} min
-        </div>
+              {{ item.minplaytime }}-{{ item.maxplaytime }} min
+            </div>
+          </template>
+          <span>Play time</span>
+        </v-tooltip>
       </div>
       <div class="mt-4">
         <v-chip

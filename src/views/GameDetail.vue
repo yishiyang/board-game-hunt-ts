@@ -19,23 +19,38 @@
               </v-btn>
             </div>
             <div class="d-flex justify-start mb-2 brown--text">
-              <div class="text-body-1 mr-2">
-                <v-icon class="" color="brown">mdi-cake-variant</v-icon>
-                >
-                {{ gameMinAge }} |
-              </div>
+              <v-tooltip bottom>
+                <template v-slot:activator="{ on, attrs }">
+                  <div v-bind="attrs" v-on="on" class="text-body-1 mr-2">
+                    <v-icon color="brown" size="20">mdi-cake-variant</v-icon>
+                    >
+                    {{ gameMinAge }} |
+                  </div>
+                </template>
+                <span>Minimum play age</span>
+              </v-tooltip>
 
-              <div class="text-body-1 mr-2">
-                <v-icon class="" color="brown">mdi-account-multiple</v-icon>
+              <v-tooltip bottom>
+                <template v-slot:activator="{ on, attrs }">
+                  <div v-bind="attrs" v-on="on" class="text-body-1 mr-2">
+                    <v-icon class="" color="brown">mdi-account-multiple</v-icon>
 
-                {{ gameMinPlayers }}-{{ gameMaxPlayers }} |
-              </div>
+                    {{ gameMinPlayers }}-{{ gameMaxPlayers }} |
+                  </div>
+                </template>
+                <span>Number of players</span>
+              </v-tooltip>
 
-              <div class="text-body-1">
-                <v-icon color="brown">mdi-clock-time-three</v-icon>
+              <v-tooltip bottom>
+                <template v-slot:activator="{ on, attrs }">
+                  <div class="text-body-1" v-bind="attrs" v-on="on">
+                    <v-icon color="brown">mdi-clock-time-three</v-icon>
 
-                {{ gameMinPlayTime }}-{{ gameMaxPlayTime }} min
-              </div>
+                    {{ gameMinPlayTime }}-{{ gameMaxPlayTime }} min
+                  </div>
+                </template>
+                <span>Play time</span>
+              </v-tooltip>
             </div>
             <div class="mb-3" v-if="gameHasLinks">
               <v-chip
@@ -44,7 +59,6 @@
                 color="brown"
                 outlined
                 label
-                small
                 class="mr-2 my-1"
               >
                 {{ category.value }}
@@ -62,15 +76,17 @@
           <v-col cols="12">
             <v-row>
               <v-col cols="6">
-                <div class="text-body-1">User Suggested Number of Players</div>
-                <v-chip> {{ randomPalyerNum }}</v-chip>
+                <div class="text-body-1 mb-2">
+                  User Suggested Number of Players
+                </div>
+                <v-chip label color="primary"> {{ randomPalyerNum }}</v-chip>
               </v-col>
 
               <v-col cols="6">
                 <div class="text-body-1">
                   What's your recommendation?
-                  <v-chip-group active-class="primary--text" column>
-                    <v-chip v-for="n in gameMaxPlayers" :key="n">
+                  <v-chip-group active-class="accent--text" column>
+                    <v-chip filter v-for="n in gameMaxPlayers" :key="n">
                       {{ n }}
                     </v-chip>
                   </v-chip-group>
@@ -80,8 +96,8 @@
 
             <v-row>
               <v-col cols="6">
-                <div class="text-body-1">User Suggested Play Time</div>
-                <v-chip> {{ randomPalyTime }} min</v-chip>
+                <div class="text-body-1 mb-6">User Suggested Play Time</div>
+                <v-chip label color="primary"> {{ randomPalyTime }} min</v-chip>
               </v-col>
               <v-col cols="6">
                 <div class="text-body-1">
