@@ -24,8 +24,10 @@ import router from "@/router/index";
   },
 
   async mounted() {
-    await games.loadHotGameIds();
-    await games.loadHotGames();
+    if (games.gameItems.length == 0) {
+      await games.loadHotGameIds();
+      await games.loadHotGames();
+    }
   },
   computed: {
     loadedGames() {
