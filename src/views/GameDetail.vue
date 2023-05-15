@@ -124,10 +124,8 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Watch } from "vue-property-decorator";
-import { Route } from "vue-router";
+import { Component, Vue } from "vue-property-decorator";
 import games from "@/store/modules/games";
-import { BggGame, BggPoll } from "@code-bucket/board-game-geek";
 
 @Component({
   props: {},

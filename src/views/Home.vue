@@ -24,6 +24,7 @@ import router from "@/router/index";
   },
 
   async mounted() {
+    //when no game loaded, load games
     if (games.gameItems.length == 0) {
       await games.loadHotGameIds();
       await games.loadHotGames();
