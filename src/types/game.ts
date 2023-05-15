@@ -6,6 +6,7 @@ import {
 } from "@code-bucket/board-game-geek";
 
 export interface IBggGame {
+  //added a new field 'votes' to the interface
   id: number;
   type: "boardgame" | string;
   thumbnail: string;

@@ -88,6 +88,7 @@ import games from "@/store/modules/games";
 
   computed: {
     gameCategories() {
+      //return the top 3 category information from the links property
       var links = [];
       for (var i = 0; i < 3; i++) {
         links.push(this.$props.item.links[i]);
@@ -98,7 +99,6 @@ import games from "@/store/modules/games";
 })
 export default class GameCard extends Vue {
   vote() {
-    console.log("vote");
     games.voteGame(this.$props.item.id);
   }
 }

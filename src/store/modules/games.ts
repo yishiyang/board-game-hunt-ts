@@ -21,6 +21,7 @@ class Games extends VuexModule {
   gameItems: Array<IBggGame> = [];
   hotGameIDs: Array<number> = [];
   searchTerm: string = "";
+  gameCount: number = 40; //With out a pagination implemented, this controls how many games are displayed on the home page
 
   @Mutation
   private SET_GAMES(games: IBggGame[]) {
@@ -53,26 +54,8 @@ class Games extends VuexModule {
   }
 
   @Action
-  async loadHotGames() {
-    var route = "https://api.geekdo.com/xmlapi2/thing?id=";
-    for (var i = 0; i < 40; i++) {
-      route = route + this.hotGameIDs[i] + ",";
-    }
-    route += "&stats=1&versions=1";
-    console.log(route);
-    const response = await axios.get(route);
-
-    const bggResponse = parseBggXmlApi2ThingResponse(response.data);
-
-    var updatedGames = bggResponse?.items.map((el) => {
-      return { ...el, votes: Math.floor(Math.random() * (100 - 0 + 1) + 0) };
-    });
-
-    this.SET_GAMES(updatedGames as IBggGame[]);
-  }
-
-  @Action
   async loadHotGameIds() {
+    //load hot games ID to get a collectino of games
     const response = await axios.get(
       "https://api.geekdo.com/xmlapi2/hot?type=boardgame"
     );
@@ -87,16 +70,39 @@ class Games extends VuexModule {
   }
 
   @Action
+  async loadHotGames() {
+    //load actual games using the hot games' id
+    var route = "https://api.geekdo.com/xmlapi2/thing?id=";
+    for (var i = 0; i < this.gameCount; i++) {
+      route = route + this.hotGameIDs[i] + ",";
+    }
+    route += "&stats=1&versions=1"; //I couldn't get the stats to return even though the param is provided here
+    const response = await axios.get(route);
+
+    const bggResponse = parseBggXmlApi2ThingResponse(response.data);
+
+    //append a random vote amount to each game
+    var updatedGames = bggResponse?.items.map((el) => {
+      return { ...el, votes: Math.floor(Math.random() * (100 - 0 + 1) + 0) };
+    });
+
+    this.SET_GAMES(updatedGames as IBggGame[]);
+  }
+
+  @Action
   searchGame(searchTerm: string) {
+    //search game with the key words
     this.UPDATE_SEARCH_TERM(searchTerm);
   }
 
   @Action
   voteGame(id: string) {
+    //add 1 to the game's votes
     this.VOTE_GAME(id);
   }
 
   get getGameById() {
+    //find the game by its id
     return function (id: string) {
       var find = getModule(Games).gameItems.find((item) => {
         return item.id.toString() == id;
@@ -107,6 +113,9 @@ class Games extends VuexModule {
   }
 
   get filteredGames() {
+    //if no search term, directly return game items
+    if (this.searchTerm == "") return this.gameItems;
+    //return search results
     return this.gameItems.filter((item: BggGame) => {
       return item.names[0].value
         .toLowerCase()

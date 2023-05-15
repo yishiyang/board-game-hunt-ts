@@ -55,15 +55,10 @@
 </template>
 
 <script lang="ts">
-import GameSection from "./components/GameSection.vue";
 import games from "@/store/modules/games";
 import { Component, Vue } from "vue-property-decorator";
 
-@Component({
-  components: {
-    GameSection,
-  },
-})
+@Component({})
 export default class App extends Vue {
   searchTerm = "";
 
@@ -71,6 +66,7 @@ export default class App extends Vue {
     if (searchTerm === null) {
       searchTerm = "";
     }
+    //search game by search term
     games.searchGame(searchTerm);
   }
 }
